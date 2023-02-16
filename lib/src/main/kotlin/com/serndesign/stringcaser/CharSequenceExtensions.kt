@@ -2,6 +2,8 @@
 
 package com.serndesign.stringcaser
 
+import java.text.Normalizer
+
 private val nonSlugCharacterExp = "[^A-Za-z0-9 _-]".toRegex()
 
 private fun echo(c: Char) = c
@@ -104,15 +106,9 @@ fun CharSequence.toSentenceCase() =
     )
 
 fun CharSequence.toSlugCase() =
-
-    // We should convert accented characters to non-accented ones first,
-    // which this commented code should do,
-    // but it's seemingly not doing anything.
-    // Asked: https://stackoverflow.com/questions/75467396/normalizer-not-removing-accents
-    // Normalizer.normalize(this, Normalizer.Form.NFD)
-    // .replace("[\\p{InCombiningDiacriticalMarks}]+", "")
-
-    replace(nonSlugCharacterExp, "")
+    Normalizer.normalize(this, Normalizer.Form.NFD)
+        .replace("[\\p{InCombiningDiacriticalMarks}]+", "")
+        .replace(nonSlugCharacterExp, "")
         .changeCase(
             firstOfExpression = Char::lowercaseChar,
             firstOfWord = Char::lowercaseChar,
