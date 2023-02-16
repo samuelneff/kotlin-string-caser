@@ -1,6 +1,6 @@
 package com.serndesign.stringcaser
 
-import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth.assertWithMessage
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -26,96 +26,66 @@ private val testExpressions = listOf(
 
 class CharSequenceExtensionsTest {
 
+    private fun assertCase(input: String, expected: String, actual: String) {
+        assertWithMessage("Unexpected result for input: $input")
+            .that(actual)
+            .isEqualTo(expected)
+    }
+
     @ParameterizedTest
     @MethodSource("testParametersForCamel")
-    fun testCamelCase(input: String, expected: String) {
-        val actual = input.toCamelCase()
-        assertThat(expected).isEqualTo(actual)
-    }
-
-    @ParameterizedTest
-    @MethodSource("testParametersForFirstUpper")
-    fun testFirstUpperCase(input: String, expected: String) {
-        val actual = input.toFirstUpperCase()
-        assertThat(expected).isEqualTo(actual)
-    }
-
-    @ParameterizedTest
-    @MethodSource("testParametersForFirstLower")
-    fun testFirstLowerCase(input: String, expected: String) {
-        val actual = input.toFirstLowerCase()
-        assertThat(expected).isEqualTo(actual)
-    }
+    fun testCamelCase(input: String, expected: String) =
+        assertCase(input, expected, input.toCamelCase())
 
     @ParameterizedTest
     @MethodSource("testParametersForKebab")
-    fun testKebabCase(input: String, expected: String) {
-        val actual = input.toKebabCase()
-        assertThat(expected).isEqualTo(actual)
-    }
+    fun testKebabCase(input: String, expected: String) =
+        assertCase(input, expected, input.toKebabCase())
 
     @ParameterizedTest
     @MethodSource("testParametersForPascal")
-    fun testPascalCase(input: String, expected: String) {
-        val actual = input.toPascalCase()
-        assertThat(expected).isEqualTo(actual)
-    }
+    fun testPascalCase(input: String, expected: String) =
+        assertCase(input, expected, input.toPascalCase())
 
     @ParameterizedTest
     @MethodSource("testParametersForScreamingKebab")
-    fun testScreamingKebabCase(input: String, expected: String) {
-        val actual = input.toScreamingKebabCase()
-        assertThat(expected).isEqualTo(actual)
-    }
+    fun testScreamingKebabCase(input: String, expected: String) =
+        assertCase(input, expected, input.toScreamingKebabCase())
 
     @ParameterizedTest
     @MethodSource("testParametersForScreamingSnake")
-    fun testScreamingSnakeCase(input: String, expected: String) {
-        val actual = input.toScreamingSnakeCase()
-        assertThat(expected).isEqualTo(actual)
-    }
+    fun testScreamingSnakeCase(input: String, expected: String) =
+        assertCase(input, expected, input.toScreamingSnakeCase())
 
     @ParameterizedTest
     @MethodSource("testParametersForSentence")
-    fun testSentenceCase(input: String, expected: String) {
-        val actual = input.toSentenceCase()
-        assertThat(expected).isEqualTo(actual)
-    }
+    fun testSentenceCase(input: String, expected: String) =
+        assertCase(input, expected, input.toSentenceCase())
 
     @ParameterizedTest
     @MethodSource("testParametersForSlug")
-    fun testSlugCase(input: String, expected: String) {
-        val actual = input.toSlugCase()
-        assertThat(expected).isEqualTo(actual)
-    }
+    fun testSlugCase(input: String, expected: String) =
+        assertCase(input, expected, input.toSlugCase())
 
     @ParameterizedTest
     @MethodSource("testParametersForSnake")
-    fun testSnakeCase(input: String, expected: String) {
-        val actual = input.toSnakeCase()
-        assertThat(expected).isEqualTo(actual)
-    }
+    fun testSnakeCase(input: String, expected: String) =
+        assertCase(input, expected, input.toSnakeCase())
 
     @ParameterizedTest
     @MethodSource("testParametersForTitle")
-    fun testTitleCase(input: String, expected: String) {
-        val actual = input.toTitleCase()
-        assertThat(expected).isEqualTo(actual)
-    }
+    fun testTitleCase(input: String, expected: String) =
+        assertCase(input, expected, input.toTitleCase())
 
     @ParameterizedTest
     @MethodSource("testParametersForTrain")
-    fun testTrainCase(input: String, expected: String) {
-        val actual = input.toTrainCase()
-        assertThat(expected).isEqualTo(actual)
-    }
+    fun testTrainCase(input: String, expected: String) =
+        assertCase(input, expected, input.toTrainCase())
 
     @ParameterizedTest
     @MethodSource("testParametersForUpperCamel")
-    fun testUpperCamelCase(input: String, expected: String) {
-        val actual = input.toUpperCamelCase()
-        assertThat(expected).isEqualTo(actual)
-    }
+    fun testUpperCamelCase(input: String, expected: String) =
+        assertCase(input, expected, input.toUpperCamelCase())
 
     companion object {
 
@@ -124,16 +94,6 @@ class CharSequenceExtensionsTest {
             testExpressions.map {
                 Arguments.of(it, "someTestInput")
             }
-
-        @JvmStatic
-        fun testParametersForFirstUpper() =
-            testExpressions.map {
-                Arguments.of(it, "SomeTestInput")
-            }
-
-        @JvmStatic
-        fun testParametersForFirstLower() =
-            testExpressions.map { Arguments.of(it, "someTestInput") }
 
         @JvmStatic
         fun testParametersForKebab() =

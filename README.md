@@ -6,7 +6,6 @@ Kotlin-canonical string manipulation functions to change the case of strings: Pa
 
 ```kotlin
     toCamelCase 
-    toFirstUpperCase
     toFirstLowerCase
     toKebabCase
     toPascalCase
